@@ -1,0 +1,5 @@
+- Fixed broken ClientProxy
+- Made weapon XP be awarded on damage instead of on kill; this removes a lot of nightmarish code as it had to track entity->player->tool->damage
+- Chime sound on level up isn't working yet, don't know why
+- Changed a lot of config systems to be more streamlined
+- It's not balanced, every level gives you an upgrade to every slot
