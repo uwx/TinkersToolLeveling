@@ -1,12 +1,12 @@
 package slimeknights.toolleveling;
 
+import lombok.var;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -26,12 +26,12 @@ public class TinkerToolLeveling {
 
     @SuppressWarnings("SameParameterValue")
     private static SoundEvent makeSound(String name) {
-        ResourceLocation location = new ResourceLocation(TinkerToolLeveling.MODID, name);
+        var location = new ResourceLocation(TinkerToolLeveling.MODID, name);
         return new SoundEvent(location).setRegistryName(location);
     }
 
     public TinkerToolLeveling() {
-        IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
+        var modbus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // register things
         Modifiers.MODIFIERS.register(modbus);

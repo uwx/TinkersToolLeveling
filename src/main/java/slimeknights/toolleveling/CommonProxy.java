@@ -1,9 +1,9 @@
 package slimeknights.toolleveling;
 
+import lombok.var;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Util;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
@@ -18,7 +18,7 @@ public class CommonProxy {
 
     public void sendLevelUpMessage(int level, ItemStack itemStack, PlayerEntity player, boolean forceSendEvenIfOnServer) {
         if (forceSendEvenIfOnServer) {
-            IFormattableTextComponent itemText = new StringTextComponent("").append(itemStack.getDisplayName()).setStyle(Style.EMPTY.withColor(TextFormatting.DARK_AQUA));
+            var itemText = new StringTextComponent("").append(itemStack.getDisplayName()).setStyle(Style.EMPTY.withColor(TextFormatting.DARK_AQUA));
 
             ITextComponent textComponent;
             if (Translation.has("message.levelup." + level)) { // special message

@@ -1,6 +1,7 @@
 package slimeknights.toolleveling;
 
 import com.google.common.base.Strings;
+import lombok.var;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -24,9 +25,9 @@ public final class Tooltips {
             return;
         }
 
-        ToolStack toolStack = ToolStack.from(itemStack);
+        var toolStack = ToolStack.from(itemStack);
 
-        int toolLevel = ToolLevelingModifier.getLevel(toolStack);
+        var toolLevel = ToolLevelingModifier.getLevel(toolStack);
 
         if (OptionsHolder.canLevelUp(toolLevel)) {
             tooltips.add(1, getXpToolTip(ToolLevelingModifier.getXp(toolStack), ToolLevelingModifier.getXpForLevelup(toolLevel, toolStack)));
@@ -78,7 +79,7 @@ public final class Tooltips {
     }
 
     private static net.minecraft.util.text.Color getLevelColor(int level) {
-        float hue = (0.277777f * level);
+        var hue = (0.277777f * level);
         hue -= (int) hue;
         return net.minecraft.util.text.Color.fromRgb(Color.HSBtoRGB(hue, 0.75f, 0.8f));
         /* Old colors

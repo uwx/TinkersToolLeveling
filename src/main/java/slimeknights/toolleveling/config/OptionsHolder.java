@@ -3,12 +3,12 @@ package slimeknights.toolleveling.config;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
+import lombok.var;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.List;
@@ -68,13 +68,13 @@ public class OptionsHolder {
     public static final ForgeConfigSpec OPTIONS_SPEC;
 
     static {
-        Pair<Options, ForgeConfigSpec> commonSpecPair = new ForgeConfigSpec.Builder().configure(Options::new);
+        var commonSpecPair = new ForgeConfigSpec.Builder().configure(Options::new);
         OPTIONS = commonSpecPair.getLeft();
         OPTIONS_SPEC = commonSpecPair.getRight();
     }
 
     public static int getBaseXpForTool(Item item) {
-        float multiplier = baseXpToolMultiplierMap.getOrDefault(item.getRegistryName(), 1);
+        var multiplier = baseXpToolMultiplierMap.getOrDefault(item.getRegistryName(), 1);
 
         return Math.round(multiplier * OPTIONS.defaultBaseXp.get());
     }
@@ -95,11 +95,11 @@ public class OptionsHolder {
     // Refresh baseXpToolMultiplierMap
     public static void refreshCaches() {
         baseXpToolMultiplierMap.clear();
-        for (String s : OPTIONS.baseXpToolMultiplier.get()) {
-            String[] sides = s.split("=");
-            String name = sides[0];
-            String mult = sides[1];
-            baseXpToolMultiplierMap.put(new ResourceLocation(name), Float.parseFloat(mult));
+        for (var s : OPTIONS.baseXpToolMultiplier.get()) {
+            var sides = s.split("=");
+            var name = new ResourceLocation(sides[0]);
+            var mult = Float.parseFloat(sides[1]);
+            baseXpToolMultiplierMap.put(name, mult);
         }
     }
 }

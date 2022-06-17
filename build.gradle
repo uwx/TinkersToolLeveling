@@ -9,12 +9,18 @@ buildscript {
         classpath 'org.parchmentmc:librarian:1.+'
     }
 }
+plugins {
+    id "io.freefair.lombok" version "6.5.0-rc1"
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+
+apply plugin: 'io.freefair.lombok'
 
 version = '0.3'
 group = 'maxine' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -59,7 +65,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                tinkertoolleveling {
                     source sourceSets.main
                 }
             }
@@ -81,7 +87,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                tinkertoolleveling {
                     source sourceSets.main
                 }
             }
@@ -106,7 +112,7 @@ minecraft {
             args '--mod', 'tinkertoolleveling', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                tinkertoolleveling {
                     source sourceSets.main
                 }
             }

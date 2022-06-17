@@ -1,6 +1,6 @@
 package slimeknights.toolleveling;
 
-import net.minecraft.block.BlockState;
+import lombok.var;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -34,7 +34,7 @@ public class ToolLevelingModifier extends SingleLevelModifier {
     public void addVolatileData(@Nonnull ToolRebuildContext context, int level, @Nonnull ModDataNBT volatileData) {
         super.addVolatileData(context, level, volatileData);
 
-        for (SlotType slotType : SlotType.getAllSlotTypes()) {
+        for (var slotType : SlotType.getAllSlotTypes()) {
 //      int startingSlots = context.getDefinition().getData().getStartingSlots(slotType);
             volatileData.setSlots(slotType, Math.max(volatileData.getSlots(slotType) + OptionsHolder.getModifierDelta(), 0));
 
@@ -85,7 +85,7 @@ public class ToolLevelingModifier extends SingleLevelModifier {
             return;
         }
 
-        BlockState newState = event.getFinalState();
+        var newState = event.getFinalState();
 
         // Mimics the behavior of IForgeBlockState.getToolModifiedState
         if (event.getState() == newState && event.getWorld() instanceof World) {
@@ -95,7 +95,7 @@ public class ToolLevelingModifier extends SingleLevelModifier {
             }
         }
 
-        ToolStack tool = ToolStack.from(event.getHeldItemStack());
+        var tool = ToolStack.from(event.getHeldItemStack());
         addXp(tool, 1, event.getPlayer());
     }
 
@@ -132,9 +132,9 @@ public class ToolLevelingModifier extends SingleLevelModifier {
     /* XP Handling */
 
     public boolean addXp(IModifierToolStack tool, int amount, PlayerEntity player) {
-        int xp = getXp(tool);
-        int bonusModifiers = getBonusModifiers(tool);
-        int level = getLevel(tool);
+        var xp = getXp(tool);
+        var bonusModifiers = getBonusModifiers(tool);
+        var level = getLevel(tool);
 
         xp += amount;
 
@@ -143,9 +143,9 @@ public class ToolLevelingModifier extends SingleLevelModifier {
             return false;
         }
 
-        int xpForLevelup = getXpForLevelup(level, tool);
+        var xpForLevelup = getXpForLevelup(level, tool);
 
-        boolean leveledUp = false;
+        var leveledUp = false;
         // check for levelup
         if (xp >= xpForLevelup) {
             xp -= xpForLevelup;
