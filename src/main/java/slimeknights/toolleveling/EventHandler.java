@@ -9,7 +9,6 @@ import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.items.CapabilityItemHandler;
 import slimeknights.tconstruct.library.tools.item.ToolItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.toolleveling.debug.CommandLevelTool;
@@ -28,30 +27,36 @@ public final class EventHandler {
     public void onJoin(PlayerEvent.PlayerLoggedInEvent event) {
         var player = event.getPlayer();
 
-//        for (Slot slot : player.inventoryMenu.slots) {
-//            ItemStack stack = slot.getItem();
-//            if (stack.getItem() instanceof ToolItem) {
-//                addModifierIfNotExists(stack);
-//            }
-//            slot.setChanged();
-//        }
-//        player.inventoryMenu.broadcastChanges();
+        var changed = false;
+
+        for (var slot : player.inventoryMenu.slots) {
+            var stack = slot.getItem();
+            if (stack.getItem() instanceof ToolItem) {
+                if (addModifierIfNotExists(stack)) {
+                    changed = true;
+                    slot.setChanged();
+                }
+            }
+        }
+        if (changed) {
+            player.inventoryMenu.broadcastChanges();
+        }
 
         // TODO this is shit; probably can be improved by making it look more like above, but this works
 
-        var itemHandler = player
-                .getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-                .orElseThrow(() -> new RuntimeException("Player didn't have item handler?????????????"));
-
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            var stack = itemHandler.getStackInSlot(i);
-            if (stack.getItem() instanceof ToolItem) {
-                var copy = stack.copy();
-                addModifierIfNotExists(copy);
-                itemHandler.extractItem(i, stack.getCount(), false);
-                itemHandler.insertItem(i, copy, false);
-            }
-        }
+//        var itemHandler = player
+//                .getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+//                .orElseThrow(() -> new RuntimeException("Player didn't have item handler?????????????"));
+//
+//        for (int i = 0; i < itemHandler.getSlots(); i++) {
+//            var stack = itemHandler.getStackInSlot(i);
+//            if (stack.getItem() instanceof ToolItem) {
+//                var copy = stack.copy();
+//                addModifierIfNotExists(copy);
+//                itemHandler.extractItem(i, stack.getCount(), false);
+//                itemHandler.insertItem(i, copy, false);
+//            }
+//        }
     }
 
     // Can't modify the item in ItemPickupEvent, but can do it in ItemTossEvent
